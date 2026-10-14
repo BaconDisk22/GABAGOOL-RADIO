@@ -83,14 +83,14 @@ val generateBuildConfig =
             |package org.meshtastic.desktop
             |
             |/**
-            | * Auto-generated build configuration for Meshtastic Desktop.
+            | * Auto-generated build configuration for GABAGOOL RADIO.
             | * Do not edit — values are derived from config.properties and git at build time.
             | */
             |object DesktopBuildConfig {
             |    const val VERSION_CODE: Int = ${versionInfo.versionCode}
             |    const val VERSION_NAME: String = "${versionInfo.versionName}"
             |    const val IS_DEBUG: Boolean = $resolvedIsDebug
-            |    const val APPLICATION_ID: String = "org.meshtastic.MeshtasticDesktop"
+            |    const val APPLICATION_ID: String = "com.bacondisk22.gabagoolradio.desktop"
             |    const val MIN_FW_VERSION: String = "${versionInfo.minFwVersion}"
             |    const val ABS_MIN_FW_VERSION: String = "${versionInfo.absMinFwVersion}"
             |}
@@ -159,9 +159,9 @@ compose.desktop {
                 "--enable-native-access=ALL-UNNAMED",
                 // Let the macOS title bar follow the system light/dark theme (ignored on other OSes).
                 "-Dapple.awt.application.appearance=system",
-                "-Dapple.awt.application.name=Meshtastic Desktop",
-                "-Dcom.apple.mrj.application.apple.menu.about.name=Meshtastic Desktop",
-                "-Dcom.apple.bundle.identifier=org.meshtastic.MeshtasticDesktop",
+                "-Dapple.awt.application.name=GABAGOOL RADIO",
+                "-Dcom.apple.mrj.application.apple.menu.about.name=GABAGOOL RADIO",
+                "-Dcom.apple.bundle.identifier=com.bacondisk22.gabagoolradio.desktop",
             )
         jvmArgs(*desktopJvmArgs.toTypedArray())
 
@@ -213,9 +213,9 @@ compose.desktop {
                     extraKeysRawXml =
                         """
                         <key>NSBluetoothAlwaysUsageDescription</key>
-                        <string>Meshtastic uses Bluetooth to communicate with your Meshtastic radio device.</string>
+                        <string>GABAGOOL RADIO uses Bluetooth to communicate with your Meshtastic radio device.</string>
                         <key>NSLocalNetworkUsageDescription</key>
-                        <string>Meshtastic uses your local network to discover Meshtastic devices connected via WiFi.</string>
+                        <string>GABAGOOL RADIO uses your local network to discover Meshtastic devices connected via WiFi.</string>
                         <key>NSUserNotificationAlertStyle</key>
                         <string>alert</string>
                         <key>CFBundleURLTypes</key>
@@ -283,7 +283,7 @@ compose.desktop {
             val sanitizedVersion = Regex("^\\d+\\.\\d+\\.\\d+").find(versionInfo.versionName)?.value ?: "1.0.0"
             packageVersion = sanitizedVersion
 
-            description = "Meshtastic Desktop Application"
+            description = "GABAGOOL RADIO Application"
             vendor = "Meshtastic LLC"
         }
     }
