@@ -38,8 +38,10 @@ jobs:
           script: |
             set -e
             ./gradlew :androidApp:assembleFdroidDebug --stacktrace
-            apk=$(find androidApp/build/outputs/apk/fdroid/debug -name '*universal*.apk' -print -quit)
-            if [ -z "$apk" ]; then apk=$(find androidApp/build/outputs/apk/fdroid/debug -name '*.apk' -print -quit); fi
+            echo "Built APK locations:"
+            find androidApp/build/outputs -type f -name '*.apk' -print
+            apk=$(find androidApp/build/outputs -type f -name '*fdroid*debug*.apk' -print -quit)
+            if [ -z "$apk" ]; then apk=$(find androidApp/build/outputs -type f -name '*.apk' -print -quit); fi
             test -n "$apk"
             adb install -r "$apk"
             pkg=com.bacondisk22.gabagoolradio.fdroid.debug
