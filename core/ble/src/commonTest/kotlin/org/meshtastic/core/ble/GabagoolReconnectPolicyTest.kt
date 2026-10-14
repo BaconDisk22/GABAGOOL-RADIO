@@ -16,6 +16,14 @@ class GabagoolReconnectPolicyTest {
     }
 
     @Test
+    fun invalidAndBoundaryCountsStaySafe() {
+        assertEquals(1_000L, GabagoolReconnectPolicy.delayMillis(Int.MIN_VALUE))
+        assertEquals(1_000L, GabagoolReconnectPolicy.delayMillis(0))
+        assertEquals(32_000L, GabagoolReconnectPolicy.delayMillis(6))
+        assertEquals(60_000L, GabagoolReconnectPolicy.delayMillis(7))
+    }
+
+    @Test
     fun explicitDisconnectPreventsRetry() {
         assertFalse(GabagoolReconnectPolicy.shouldRetry(userDisconnected = true, shuttingDown = false))
         assertFalse(GabagoolReconnectPolicy.shouldRetry(userDisconnected = false, shuttingDown = true))
