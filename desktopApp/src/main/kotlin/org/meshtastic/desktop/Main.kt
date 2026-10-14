@@ -17,6 +17,14 @@
 package org.meshtastic.desktop
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -166,6 +174,31 @@ private fun svgPainterResource(path: String, density: Density): Painter = rememb
 
 @OptIn(ExperimentalCoilApi::class)
 fun main(args: Array<String>) {
+    if ("--demo" in args) {
+        application {
+            Window(onCloseRequest = ::exitApplication, title = "GABAGOOL RADIO • DEMO MODE") {
+                AppTheme(darkTheme = true, dynamicColor = false) {
+                    Surface(modifier = Modifier.fillMaxSize()) {
+                        Column(
+                            modifier = Modifier.fillMaxSize().padding(32.dp),
+                            verticalArrangement = Arrangement.spacedBy(18.dp),
+                        ) {
+                            Text("GABAGOOL RADIO", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
+                            Text("WHAT EXIT? WHAT NODE?", style = MaterialTheme.typography.titleLarge)
+                            Text("THE GARDEN STATE MESH", color = MaterialTheme.colorScheme.secondary)
+                            Text("DEMO MODE • SIMULATED DATA", color = MaterialTheme.colorScheme.tertiary)
+                            Text("Exit 13A Repeater • Online (simulated)")
+                            Text("Boardwalk Relay • Online (simulated)")
+                            Text("Parkway Mobile • Offline (simulated)")
+                            Text("NO RADIO CONNECTED • NO MESSAGES SENT")
+                            Text("FUGGEDABOUTIT!", style = MaterialTheme.typography.headlineSmall)
+                        }
+                    }
+                }
+            }
+        }
+        return
+    }
     installQuitHandler()
     // exitProcessOnExit = false is what makes the shutdown block below reachable at all: with the default (true),
     // application() calls System.exit(0) itself as soon as the Compose loop ends, and control never returns here.
