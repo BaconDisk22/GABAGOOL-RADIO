@@ -22,9 +22,11 @@
 
 *“No nodes? Everybody must be down the Shore.”* — just one of the Jersey-style messages planned for the rebrand.
 
-## 🖥️ Android + Intel Mac plans
+## 🖥️ Android + Intel Mac development builds
 
-The upstream project includes Android and Compose Desktop code. Our goal is to ship GABAGOOL RADIO for Android and a double-clickable **macOS Intel (x86_64) .app/.dmg**. Packaging, USB/Bluetooth support, and desktop feature parity still need to be tested; **no Mac installer or rebranded APK is released yet**.
+GitHub Actions has successfully packaged an Android F-Droid **debug APK** and an Intel macOS **DMG**. Download the ZIP artifacts from [the verified build run](https://github.com/BaconDisk22/GABAGOOL-RADIO/actions/runs/38512973952). These are **development builds**, not signed production releases. Successful packaging does **not** establish that radio connectivity, app startup on macOS Tahoe, or all planned features work. Test with noncritical devices and back up radio settings first.
+
+See [installation and release verification](docs/GABAGOOL_TESTING.md) for test steps and current limitations.
 
 ## 🎨 The Jersey paint job
 
