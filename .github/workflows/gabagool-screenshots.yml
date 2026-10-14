@@ -39,7 +39,7 @@ jobs:
             if [ -z "$apk" ]; then apk=$(find androidApp/build/outputs/apk/fdroid/debug -name '*.apk' -print -quit); fi
             test -n "$apk"
             adb install -r "$apk"
-            pkg=$(aapt dump badging "$apk" | sed -n "s/package: name='\([^']*\)'.*/\1/p" | head -1)
+            pkg=com.bacondisk22.gabagoolradio.fdroid.debug
             adb shell am start -n "$pkg/org.meshtastic.app.GabagoolDemoActivity"
             sleep 8
             mkdir -p screenshots
