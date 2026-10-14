@@ -143,7 +143,7 @@ private const val DISK_CACHE_MAX_BYTES = 32L * 1024L * 1024L // 32 MiB
 private const val SKIP_CONNECT_CONFIRM_ARG = "--skip-connect-confirm"
 
 /** The window title, and the title the Linux tray item reports to its host. */
-private const val APP_WINDOW_TITLE = "Meshtastic Desktop"
+private const val APP_WINDOW_TITLE = "GABAGOOL RADIO — What Exit? What Node?"
 
 /**
  * Loads an SVG from JVM classpath resources and returns a [Painter].
