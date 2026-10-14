@@ -1,0 +1,66 @@
+name: Gabagool Automatic Development Releases
+
+# Runs only after the existing Android + Intel Mac candidate build completes.
+# Never executes untrusted pull-request code with a write-capable token.
+on:
+  workflow_run:
+    workflows: ["Gabagool Radio Build Candidates"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: gabagool-release-${{ github.event.workflow_run.id }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: >-
+      github.repository == 'BaconDisk22/GABAGOOL-RADIO' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RUN_ID: ${{ github.event.workflow_run.id }}
+      SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+      SOURCE_NUMBER: ${{ github.event.workflow_run.run_number }}
+    steps:
+      - name: Download verified build artifacts from exact successful run
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          gh run download "$RUN_ID" --repo "$GITHUB_REPOSITORY" --name gabagool-android-debug --dir dist/android
+          gh run download "$RUN_ID" --repo "$GITHUB_REPOSITORY" --name gabagool-macos-intel-dmg --dir dist/mac
+      - name: Validate installers and generate checksums
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          apks=(dist/android/*.apk)
+          dmgs=(dist/mac/*.dmg)
+          (( ${#apks[@]} > 0 && ${#dmgs[@]} > 0 )) || { echo "Missing Android APK or Intel Mac DMG"; exit 1; }
+          for file in "${apks[@]}" "${dmgs[@]}"; do
+            test "$(stat -c %s "$file")" -gt 1048576 || { echo "Suspiciously small artifact: $file"; exit 1; }
+          done
+          mkdir -p release
+          cp "${apks[@]}" "${dmgs[@]}" release/
+          (cd release && sha256sum -- * > SHA256SUMS.txt)
+      - name: Publish immutable-per-run development prerelease
+        run: |
+          set -euo pipefail
+          tag="gabagool-dev-${SOURCE_NUMBER}-${SOURCE_SHA:0:12}"
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release already exists: $tag"
+            exit 0
+          fi
+          gh release create "$tag" release/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$SOURCE_SHA" \
+            --prerelease \
+            --title "GABAGOOL RADIO development build #${SOURCE_NUMBER}" \
+            --notes "Automatic unsigned development prerelease from successful main-branch build run #${RUN_ID} (commit ${SOURCE_SHA}). Includes Android debug APK, Intel Mac DMG, and SHA-256 checksums. Not production signed, notarized, or hardware verified. For testing only."
