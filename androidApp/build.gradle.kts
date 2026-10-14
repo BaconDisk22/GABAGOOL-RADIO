@@ -72,7 +72,7 @@ configure<ApplicationExtension> {
         }
     }
     defaultConfig {
-        applicationId = configProperties.getProperty("APPLICATION_ID")
+        applicationId = "com.bacondisk22.gabagoolradio"
 
         versionCode = versionInfo.versionCode
         versionName = versionInfo.versionName
@@ -178,7 +178,7 @@ configurations
 
 androidComponents {
     onVariants(selector().withBuildType("debug")) { variant ->
-        variant.flavorName?.let { flavor -> variant.applicationId.set("com.geeksville.mesh.$flavor.debug") }
+        variant.flavorName?.let { flavor -> variant.applicationId.set("com.bacondisk22.gabagoolradio.$flavor.debug") }
     }
     onVariants { variant ->
         val generateLocaleConfig =
