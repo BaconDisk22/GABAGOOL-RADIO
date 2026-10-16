@@ -3,7 +3,8 @@ set -euo pipefail
 ./gradlew :androidApp:assembleFdroidDebug --stacktrace
 echo "Built APK locations:"
 find androidApp/build/outputs -type f -name '*.apk' -print
-apk=$(find androidApp/build/outputs -type f -name '*universal*debug.apk' -print -quit)
+apk=$(find androidApp/build/outputs -type f -name '*x86_64*debug.apk' -print -quit)
+if [[ -z "$apk" ]]; then apk=$(find androidApp/build/outputs -type f -name '*universal*debug.apk' -print -quit); fi
 if [[ -z "$apk" ]]; then apk=$(find androidApp/build/outputs -type f -name '*.apk' -print -quit); fi
 test -n "$apk"
 adb install -r "$apk"
