@@ -420,6 +420,8 @@
                 tools:node="remove" />
         </provider>
 
+        <!-- Explicit-only, offline demonstration for screenshots. Not in the launcher. -->
+        <activity android:name="org.meshtastic.app.GabagoolDemoActivity" android:exported="true" />
     </application>
 
 </manifest>

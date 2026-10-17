@@ -22,6 +22,16 @@
 
 *“No nodes? Everybody must be down the Shore.”* — just one of the Jersey-style messages planned for the rebrand.
 
+## 📸 App screenshots
+
+Screenshots are generated from **offline demonstration mode**, using simulated nodes rather than real radio traffic. After the screenshot workflow succeeds on `main`, the images below are automatically refreshed.
+
+| Android demo | Intel Mac demo |
+| --- | --- |
+| ![GABAGOOL RADIO Android demonstration](screenshots/gabagool-android-demo.png) | ![GABAGOOL RADIO Intel Mac demonstration](screenshots/gabagool-macos-demo.png) |
+
+If an image is not visible yet, the screenshot publishing workflow has not completed successfully. See [GitHub Actions](https://github.com/BaconDisk22/GABAGOOL-RADIO/actions/workflows/gabagool-screenshots.yml) for build and capture status.
+
 ## 🖥️ Android + Intel Mac development builds
 
 GitHub Actions has successfully packaged an Android F-Droid **debug APK** and an Intel macOS **DMG**. Download the ZIP artifacts from [the verified build run](https://github.com/BaconDisk22/GABAGOOL-RADIO/actions/runs/38512973952). These are **development builds**, not signed production releases. Successful packaging does **not** establish that radio connectivity, app startup on macOS Tahoe, or all planned features work. Test with noncritical devices and back up radio settings first.
